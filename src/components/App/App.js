@@ -14,7 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import UserPage from '../UserPage/UserPage';
-import SecretsPage from '../ApprovedPage/SecretsPage';
+import ApprovedPage from '../ApprovedPage/ApprovedPage';
 
 import './App.css';
 
