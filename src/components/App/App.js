@@ -14,7 +14,7 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import UserPage from '../UserPage/UserPage';
-import SecretsPage from '../SecretsPage/SecretsPage';
+import SecretsPage from '../ApprovedPage/SecretsPage';
 
 import './App.css';
 
@@ -41,11 +41,11 @@ class App extends Component {
               component={UserPage}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
-            they will see the secrets page instead. */}
+            they will see the approved page instead. */}
             <ProtectedRoute
               exact
-              path="/secrets"
-              component={SecretsPage}
+              path="/approved"
+              component={ApprovedPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
