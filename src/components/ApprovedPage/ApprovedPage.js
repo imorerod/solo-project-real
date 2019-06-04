@@ -1,32 +1,31 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
-import ApprovedNames from '../ApprovedNames/ApprovedNames';
+import { connect } from 'react-redux';
 
 class ApprovedPage extends Component {
-    componentDidMount() {
-        this.getApproved();
-    }
-    
-        getApproved() {
-        this.props.dispatch({
-            type: 'GET_APPROVED_LIST',
-        });
-    }
+  componentDidMount() {
+    this.props.dispatch({type: 'GET_APPROVED_LIST'});
+  }
 
-    render() {
-        return(
-            <div>THIS IS THE APPROVED PAGE INFO
-                <ul>
-                    {this.props.reduxState.approvedReducer.map((name, index) => {
-                        return (
-                            <ApprovedNames key={name.id} item={name} />
-                        );
-                    })}
-                </ul>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <p>This person is on my list <b>{this.props.approved.name}</b></p>
+        <p>This is their number: <b>{this.props.approved.number}</b></p>
+        <ul>
+          {this.props.secrets.map(secret => (
+            <li>
+              Clearance: {secret.secrecy_level} | Content: {secret.content}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 }
 
-export default connect(mapReduxStateToProps)(ApprovedPage);
+const mapStateToProps = state => ({
+  secrets: state.secrets,
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(ApprovedPage);
