@@ -14,8 +14,7 @@ router.get('/', (req, res) => {
             console.log(`Err: ${err}`);
             res.sendStatus(500);
         });
+    }
 });
-
-
 
 module.exports = router;
