@@ -1,6 +1,4 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 
@@ -16,47 +14,45 @@ class ChildList extends Component {
         }
     }
 
-    // handleNameChange = event => {
-    //     console.log('event happended')
-    //     this.setState({
-    //         newPlant: {
-    //             ...this.state.newPlant,
-    //             name: event.target.value,
-    //         }
-    //     });
-    // }
+    handleChange = (dataname) => event => {
+        this.setState({
+            newChild: {
+                ...this.state.newChild,
+                [dataname] : event.target.value
+            }
+        });
+    }
 
-    // addNewPlant = event => {
-    //     event.preventDefault();
-    //     this.props.dispatch({ type: 'POST_PLANT', payload: this.state.newPlant })
-    //     this.setState({
-    //         newPlant: {
-    //             id: this.state.newPlant.id + 1,
-    //             name: '',
-    //         }
-    //     });
-    // }
+    addNewChild = event => {
+        event.preventDefault();
+        console.log('meow');
+        this.props.dispatch({ type: 'ADD_NEW_CHILD', payload: this.state.newChild })
+        this.setState({
+            newChild: {
+                name: '',
+                number: '',
+            }
+        });
+    }
 
     render() {
         // const listArray = this.props.reduxState.childListReducer.map((item, index) => {
         //     return (
-        //         <button key={index} data-id={item.id} onClick={this.onTagClick}>
+        //         <div key={index} data-id={item.id}>
         //             {item.name}
-        //         </button>
+        //         </div>
         //     )
         // })
 
-
-
         return (
             <div>
-                {/* <h3>Add New Child</h3>
-                <form >
-                    <input type='text' value={this.state.newChild.name} onChange={this.handlChange} />
-                    <input type='text' value={this.state.newChild.number} onChange={this.handleChange} />
+                {/* {listArray} */}
+                <h3>Add New Child</h3>
+                <form onSubmit={this.addNewChild}>
+                    <input type='text' value={this.state.newChild.name} onChange={this.handleChange('name')} placeholder="Name"/>
+                    <input type='text' value={this.state.newChild.number} onChange={this.handleChange('number')} placeholder="Phone Number"/>
                     <input type='submit' value='Add New Child' />
-                </form> */}
-                List
+                </form>
             </div>
         );
     }

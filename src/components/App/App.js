@@ -15,6 +15,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import UserPage from '../UserPage/UserPage';
 import ApprovedPage from '../ApprovedPage/ApprovedPage';
+import ChildList from '../ChildList/ChildList';
 
 import './App.css';
 
@@ -47,6 +48,12 @@ class App extends Component {
               path="/approved"
               component={ApprovedPage}
             />
+            <ProtectedRoute
+              exact
+              path="/list"
+              component={ChildList}
+            />
+
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
