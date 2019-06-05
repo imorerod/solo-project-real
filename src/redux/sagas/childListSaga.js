@@ -28,9 +28,9 @@ function* getChildList() {
   }
   
 
-function* childList() {
+function* childListSaga() {
     yield takeLatest('GET_CHILD_LIST', getChildList);
     yield takeLatest('ADD_NEW_CHILD', addNewChild)
 }
   
-export default childList;
+export default childListSaga;

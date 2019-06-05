@@ -1,4 +1,4 @@
-const childList = (state = [], action) => {
+const childListReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_LIST':
             return action.payload;
@@ -7,4 +7,4 @@ const childList = (state = [], action) => {
     }
 }
 
-export default childList;
+export default childListReducer;

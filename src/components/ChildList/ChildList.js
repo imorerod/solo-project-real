@@ -35,19 +35,25 @@ class ChildList extends Component {
         });
     }
 
+    clickName = (event) => {
+        this.props.history.push('/approved');
+}
+
+
     render() {
-        // const listArray = this.props.reduxState.childListReducer.map((item, index) => {
-        //     return (
-        //         <div key={index} data-id={item.id}>
-        //             {item.name}
-        //         </div>
-        //     )
-        // })
+        const listArray = this.props.reduxState.childListReducer.map((item, index) => {
+            return (
+                <button key={index} data-id={item.id} onClick={this.clickName}>
+                    {item.name}
+                </button>
+            )
+        })
 
         return (
             <div>
-                {/* {listArray} */}
-                <h3>Add New Child</h3>
+                <h2>Children:</h2>
+                {listArray}
+                <h5>Add New Child</h5>
                 <form onSubmit={this.addNewChild}>
                     <input type='text' value={this.state.newChild.name} onChange={this.handleChange('name')} placeholder="Name"/>
                     <input type='text' value={this.state.newChild.number} onChange={this.handleChange('number')} placeholder="Phone Number"/>

@@ -2,12 +2,12 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-router.get('/:id', (req,res) => {
+router.get('/', (req,res) => {
     const queryString = `SELECT * FROM "child"
     JOIN "parent_child" ON "child".id = "parent_child"."child_id"
     WHERE "parent_child".parent_id = $1;`;
 
-    pool.query(queryString, [req.params.id])
+    pool.query(queryString, [req.user.id])
         .then((response) => {
             res.send(response.rows);
         })
@@ -36,7 +36,7 @@ router.post('/', (req, res) => {
             pool.query(queryText, [req.user.id, childId])
                 .then(() => res.sendStatus(201))
                 .catch((err) => {
-                    
+
                     console.log('Err saving to parent child table: ', err);
                     res.sendStatus(500);
                 })
