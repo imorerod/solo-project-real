@@ -9,7 +9,7 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
-// const approvedRouter = require('./routes/approved.router');
+const approvedRouter = require('./routes/approved.router');
 const listRouter = require('./routes/list.router');
 
 
@@ -26,7 +26,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-// app.use('/approved', approvedRouter);
+app.use('/api/approved', approvedRouter);
 app.use('/api/list', listRouter);
 
 // Serve static files
