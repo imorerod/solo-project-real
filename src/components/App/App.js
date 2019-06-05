@@ -14,7 +14,6 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import UserPage from '../UserPage/UserPage';
-import ApprovedPage from '../ApprovedPage/ApprovedPage';
 import ChildList from '../ChildList/ChildList';
 
 import './App.css';
@@ -43,11 +42,6 @@ class App extends Component {
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the approved page instead. */}
-            <ProtectedRoute
-              exact
-              path="/approved"
-              component={ApprovedPage}
-            />
             <ProtectedRoute
               exact
               path="/list"

@@ -17,7 +17,7 @@ function* getApproved(action) {
 
   function* callsSaga() {
     yield takeLatest('GET_APPROVED', getApproved);
-    yield takeLatest('GET_NON_APPROVED', getNonApproved);
+//    yield takeLatest('GET_NON_APPROVED', getNonApproved);
   }
   
 export default callsSaga;
