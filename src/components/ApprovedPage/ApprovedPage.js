@@ -9,15 +9,6 @@ class ApprovedPage extends Component {
   render() {
     return (
       <div>
-        {/* <p>This person is on my list <b>{this.props.approved.name}</b></p>
-        <p>This is their number: <b>{this.props.approved.number}</b></p>
-        <ul>
-          {this.props.secrets.map(secret => (
-            <li>
-              Clearance: {secret.secrecy_level} | Content: {secret.content}
-            </li>
-          ))}
-        </ul> */}
         Hi
       </div>
     );
