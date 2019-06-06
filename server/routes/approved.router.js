@@ -18,4 +18,18 @@ router.get('/:id', (req,res) => {
         });
 });
 
+router.post('/', (req, res, next) => {
+    const name = req.body.name;
+    const number = req.body.number;  
+    const queryText = `INSERT INTO "approved" (name, number) VALUES ($1, $2);`;
+    pool.query(queryText, [name, number])
+      .then((response) => {
+        res.sendStatus(201)
+      }) 
+      .catch((err) => {
+        console.log('err posting new approved to db', err);
+        res.sendStatus(500);
+      }); 
+  });
+
 module.exports = router;

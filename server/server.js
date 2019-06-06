@@ -11,6 +11,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const approvedRouter = require('./routes/approved.router');
 const listRouter = require('./routes/list.router');
+const nonApprovedRouter = require('./routes/nonApproved.router');
 
 
 // Body parser middleware
@@ -28,6 +29,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/approved', approvedRouter);
 app.use('/api/list', listRouter);
+app.use('api/non_approved', nonApprovedRouter );
 
 // Serve static files
 app.use(express.static('build'));

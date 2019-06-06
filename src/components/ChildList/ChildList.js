@@ -5,6 +5,7 @@ import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 class ChildList extends Component {
   componentDidMount() {
     this.props.dispatch({type: 'GET_CHILD_LIST'});
+    this.props.dispatch({type: 'GET_NON_APPROVED' });
   }
 
     state = {
@@ -12,8 +13,13 @@ class ChildList extends Component {
             name: '',
             number: ''
         },
+        newApproved: {
+            name: '',
+            number: ''
+        },
         selectedChild: null,
-        phoneNumbers: ''
+        phoneNumbers: '',
+        nonApprovedNumbers: '',
     }
 
     handleChange = (dataname) => event => {
@@ -39,9 +45,11 @@ class ChildList extends Component {
     selectChild = (value) => event => {
         if(!this.state.selectedChild){
             // HERE WE WOULD WANT TO GET THE CURRENT CHILD PHONE NUMBERS.
+            // ALSO DISPLAYING NON_APPROVED NUMBERS
             // YOU WILL NEED TO DISPATCH HERE TO GET THE LIST OF NUMBERS (APPROVED OR NOT)
             console.log('Child database id: ' , event.target.dataset.id);
             this.props.dispatch({type: 'GET_APPROVED', payload: { id: event.target.dataset.id }});
+            this.props.dispatch({type: 'GET_NON_APPROVED', payload: { id: event.target.dataset.id }});
             this.setState({
                 selectedChild: value
             });
@@ -52,13 +60,24 @@ class ChildList extends Component {
         }
     }
 
-    onFormChange = (value) => event => {
-        console.log('hi');
+    onFormChange = (dataname) => event => {
+        this.setState({
+            newApproved: {
+                ...this.state.newApproved,
+                [dataname] : event.target.value
+            }
+        });
     }
 
-    submitForm = event => {
+    addNewApproved = event => {
         event.preventDefault();
-        console.log('also hi');
+        this.props.dispatch({ type: 'ADD_APPROVED', payload: this.state.newApproved })
+        this.setState({
+            newApproved: {
+                name: '',
+                number: '',
+            }
+        });
     }
 
     render() {
@@ -72,8 +91,10 @@ class ChildList extends Component {
 
         const addNumberField = (
             <div>
-                <form onSubmit={this.submitForm}>
-                    <input type="text" onChange={this.onFormChange("approved")} placeholder="Approved Number" />
+                <form onSubmit={this.addNewApproved}>
+                    <p>Add New Approved:</p>
+                    <input type="text" onChange={this.onFormChange('name')} placeholder="Name" />
+                    <input type="text" onChange={this.onFormChange('number')} placeholder="Number" />
                     <input type="submit" value="Submit"/>
                 </form>
             </div>
@@ -85,18 +106,30 @@ class ChildList extends Component {
             console.log(item);
             return (
                 <div key={index}>
-                <p >{item.name}</p>
-                <p>{item.number}</p>
+                    <p >{item.name}</p>
+                    <p>{item.number}</p>
                 </div>
             )
+        })
 
+        const nonApproved = this.props.reduxState.phoneNumbersReducer.map((item, index) => {
+            console.log(item);
+            return (
+                <div key={index}>
+                    <p>{item.number}</p>
+                    <p>{item.time}</p>
+                    <p>{item.reviewed}</p>
+                </div>
+            )
         })
 
         if(this.state.selectedChild) {
             childView = (
                 <div>
-                    <p>Numbers go here:</p>
+                    <p>Approved numbers go here:</p>
                     {phoneNumbers}
+                    <p>Non-Approved numbers go here:</p>
+                    {nonApproved}
                     {addNumberField}
                 </div>
             )
