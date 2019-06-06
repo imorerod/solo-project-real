@@ -5,7 +5,7 @@ import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 class ChildList extends Component {
   componentDidMount() {
     this.props.dispatch({type: 'GET_CHILD_LIST'});
-    this.props.dispatch({type: 'GET_NON_APPROVED' });
+//    this.props.dispatch({type: 'GET_NON_APPROVED' });
   }
 
     state = {
@@ -15,11 +15,12 @@ class ChildList extends Component {
         },
         newApproved: {
             name: '',
-            number: ''
+            number: '',
+            childId: null
         },
         selectedChild: null,
         phoneNumbers: '',
-        nonApprovedNumbers: '',
+//        nonApprovedNumbers: '',
     }
 
     handleChange = (dataname) => event => {
@@ -45,13 +46,16 @@ class ChildList extends Component {
     selectChild = (value) => event => {
         if(!this.state.selectedChild){
             // HERE WE WOULD WANT TO GET THE CURRENT CHILD PHONE NUMBERS.
-            // ALSO DISPLAYING NON_APPROVED NUMBERS
             // YOU WILL NEED TO DISPATCH HERE TO GET THE LIST OF NUMBERS (APPROVED OR NOT)
             console.log('Child database id: ' , event.target.dataset.id);
             this.props.dispatch({type: 'GET_APPROVED', payload: { id: event.target.dataset.id }});
             this.props.dispatch({type: 'GET_NON_APPROVED', payload: { id: event.target.dataset.id }});
             this.setState({
-                selectedChild: value
+                selectedChild: value,
+                newApproved: {
+                    ...this.state.newApproved,
+                    childId: event.target.dataset.id
+                }
             });
         } else {
             this.setState({
@@ -112,16 +116,16 @@ class ChildList extends Component {
             )
         })
 
-        const nonApproved = this.props.reduxState.phoneNumbersReducer.map((item, index) => {
-            console.log(item);
-            return (
-                <div key={index}>
-                    <p>{item.number}</p>
-                    <p>{item.time}</p>
-                    <p>{item.reviewed}</p>
-                </div>
-            )
-        })
+        // const nonApproved = this.props.reduxState.phoneNumbersReducer.map((item, index) => {
+        //     console.log(item);
+        //     return (
+        //         <div key={index}>
+        //             <p>{item.number}</p>
+        //             <p>{item.time}</p>
+        //             <p>{item.reviewed}</p>
+        //         </div>
+        //     )
+        // })
 
         if(this.state.selectedChild) {
             childView = (
@@ -129,7 +133,7 @@ class ChildList extends Component {
                     <p>Approved numbers go here:</p>
                     {phoneNumbers}
                     <p>Non-Approved numbers go here:</p>
-                    {nonApproved}
+                                        {/* {nonApproved} */}
                     {addNumberField}
                 </div>
             )

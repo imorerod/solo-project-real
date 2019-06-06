@@ -18,18 +18,34 @@ router.get('/:id', (req,res) => {
         });
 });
 
-router.post('/', (req, res, next) => {
-    const name = req.body.name;
-    const number = req.body.number;  
-    const queryText = `INSERT INTO "approved" (name, number) VALUES ($1, $2);`;
-    pool.query(queryText, [name, number])
+router.post('/', (req, res) => {
+    const newApproved = req.body;
+    let queryText = `INSERT INTO "approved" ("name", "number")
+                      VALUES ($1, $2)
+                      RETURNING "id";`;
+    const queryValues = [
+        newApproved.name,
+        newApproved.number
+    ];
+
+    pool.query(queryText, queryValues)
       .then((response) => {
-        res.sendStatus(201)
-      }) 
+          const approvedId = response.rows[0].id;
+          queryText = `INSERT INTO "child_approved" ("child_id", "approved_id")
+                        VALUES ($1, $2);`;
+
+            console.log('************* ', newApproved.childId, approvedId);
+            pool.query(queryText, [newApproved.childId, approvedId])
+                .then(() => res.sendStatus(201))
+                .catch((err) => {
+                    console.log('Err saving to parent child table: ', err);
+                    res.sendStatus(500);
+                })
+       })
       .catch((err) => {
-        console.log('err posting new approved to db', err);
+        console.log('Error completing select APPROVED query', err);
         res.sendStatus(500);
-      }); 
+      });
   });
 
 module.exports = router;
