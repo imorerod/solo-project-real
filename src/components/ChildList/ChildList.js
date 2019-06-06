@@ -19,6 +19,7 @@ class ChildList extends Component {
             childId: null
         },
         selectedChild: null,
+        selectedApproved: null,
         phoneNumbers: '',
 //        nonApprovedNumbers: '',
     }
