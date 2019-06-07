@@ -5,7 +5,6 @@ import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 class ChildList extends Component {
   componentDidMount() {
     this.props.dispatch({type: 'GET_CHILD_LIST'});
-//    this.props.dispatch({type: 'GET_NON_APPROVED' });
   }
 
     state = {
@@ -21,7 +20,7 @@ class ChildList extends Component {
         selectedChild: null,
         selectedApproved: null,
         phoneNumbers: '',
-//        nonApprovedNumbers: '',
+        nonApprovedNumbers: ''
     }
 
     handleChange = (dataname) => event => {
@@ -96,7 +95,7 @@ class ChildList extends Component {
 
         const addNumberField = (
             <div>
-                <form onSubmit={this.addNewApproved}>
+                <form className="addField" onSubmit={this.addNewApproved}>
                     <p>Add New Approved:</p>
                     <input type="text" onChange={this.onFormChange('name')} placeholder="Name" />
                     <input type="text" onChange={this.onFormChange('number')} placeholder="Number" />
@@ -117,25 +116,25 @@ class ChildList extends Component {
             )
         })
 
-        // const nonApproved = this.props.reduxState.phoneNumbersReducer.map((item, index) => {
-        //     console.log(item);
-        //     return (
-        //         <div key={index}>
-        //             <p>{item.number}</p>
-        //             <p>{item.time}</p>
-        //             <p>{item.reviewed}</p>
-        //         </div>
-        //     )
-        // })
+        const nonApprovedNumbers = this.props.reduxState.nonApprovedReducer.map((non, index) => {
+            console.log(non);
+            return (
+                <div key={index}>
+                    <p>{non.number}</p>
+                    <p>{non.time}</p>
+                    <p>{non.reviewed}</p>
+                </div>
+            )
+        })
 
         if(this.state.selectedChild) {
             childView = (
                 <div>
+                    {addNumberField}
                     <p>Approved numbers go here:</p>
                     {phoneNumbers}
                     <p>Non-Approved numbers go here:</p>
-                                        {/* {nonApproved} */}
-                    {addNumberField}
+                    {nonApprovedNumbers}
                 </div>
             )
         }
@@ -147,7 +146,7 @@ class ChildList extends Component {
                 {listArray}
                 {childView}
                 <h5>Add New Child</h5>
-                <form onSubmit={this.addNewChild}>
+                <form className="addField" onSubmit={this.addNewChild}>
                     <input type='text' value={this.state.newChild.name}
                                         onChange={this.handleChange('name')}
                                         placeholder="Name"/>

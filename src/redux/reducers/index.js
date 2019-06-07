@@ -5,6 +5,7 @@ import user from './userReducer';
 // import approvedReducer from './approvedReducer';
 import childListReducer from './childListReducer';
 import phoneNumbersReducer from './phoneNumbersReducer';
+import nonApprovedReducer from './nonApprovedReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   // approvedReducer
   childListReducer,
-  phoneNumbersReducer
+  phoneNumbersReducer,
+  nonApprovedReducer
 });
 
 export default rootReducer;

@@ -32,23 +32,23 @@ function* postApproved(action) {
   }
 }
 
-// function* getNonApproved(action) {
-//     console.log(action);
-//     try {
-//       const response = yield axios.get(`api/non_approved/${action.payload.id}`);
-//       console.log('FROM THE SAGA', response);
-//       yield put({
-//         type: 'SET_NON_APPROVED',
-//         payload: response.data
-//       })
-//     } catch (err) {
-//       console.log('error HELP:', err)
-//       }
-// }
+function* getNonApproved(action) {
+    console.log(action);
+    try {
+      const response = yield axios.get(`api/non_approved/${action.payload.id}`);
+      console.log('FROM THE NON APPROVED SAGA', response);
+      yield put({
+        type: 'SET_NON_APPROVED',
+        payload: response.data
+      })
+    } catch (err) {
+      console.log('error HELP:', err)
+      }
+}
 
 function* callsSaga() {
   yield takeLatest('GET_APPROVED', getApproved);
-  // yield takeLatest('GET_NON_APPROVED', getNonApproved);
+  yield takeLatest('GET_NON_APPROVED', getNonApproved);
   yield takeLatest('ADD_APPROVED', postApproved);
 }
   
