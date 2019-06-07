@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
+import './ChildList.css';
+import ReactDropdown from 'react-dropdown';
+import './Dropdown.css';
+
+const options = [
+    'Yes', 'No'
+];
 
 class ChildList extends Component {
   componentDidMount() {
@@ -109,21 +116,46 @@ class ChildList extends Component {
         const phoneNumbers = this.props.reduxState.phoneNumbersReducer.map((item, index) => {
             console.log(item);
             return (
-                <div key={index}>
-                    <p >{item.name}</p>
-                    <p>{item.number}</p>
-                </div>
+                <table className="tableStyle">
+                    <thead>
+                        <tr>
+                            <th>Approved Numbers</th>
+                        </tr>
+                    <thead></thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{item.name}</td>
+                            <td>{item.number}</td>
+                        </tr>
+                    </tbody>
+                </table>
             )
         })
 
         const nonApprovedNumbers = this.props.reduxState.nonApprovedReducer.map((non, index) => {
             console.log(non);
             return (
-                <div key={index}>
-                    <p>{non.number}</p>
-                    <p>{non.time}</p>
-                    <p>{non.reviewed}</p>
-                </div>
+                <table className="tableStyle">
+                    <thead>
+                        <tr>
+                            <th>Number</th>
+                            <th>Time</th>
+                            <th>Reviewed?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{non.number}</td>
+                            <td>{non.time}</td>
+                            <td><ReactDropdown options={options} onChange={this._onSelect}  placeholder="No" /></td>
+                        </tr>
+                    </tbody>
+                </table>
             )
         })
 
@@ -131,7 +163,6 @@ class ChildList extends Component {
             childView = (
                 <div>
                     {addNumberField}
-                    <p>Approved numbers go here:</p>
                     {phoneNumbers}
                     <p>Non-Approved numbers go here:</p>
                     {nonApprovedNumbers}

@@ -34,7 +34,6 @@ router.post('/', (req, res) => {
           queryText = `INSERT INTO "child_approved" ("child_id", "approved_id")
                         VALUES ($1, $2);`;
 
-            console.log('************* ', newApproved.childId, approvedId);
             pool.query(queryText, [newApproved.childId, approvedId])
                 .then(() => res.sendStatus(201))
                 .catch((err) => {
