@@ -4,9 +4,25 @@ import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 import './ChildList.css';
 import ReactDropdown from 'react-dropdown';
 import './Dropdown.css';
+// import { makeStyles } from '@material-ui/core/styles';
+// fimport Input from '@material-ui/core/Input';
+
+// const useStyles = makeStyles(theme => ({
+//     container: {
+//       display: 'flex',
+//       flexWrap: 'wrap',
+//     },
+//     input: {
+//       margin: theme.spacing(1),
+//     },
+//   }));
+  
+//   export default function Inputs() {
+//     const classes = useStyles();
 
 const options = [
-    'Yes', 'No'
+    'Yes',
+    'No',
 ];
 
 class ChildList extends Component {
@@ -27,9 +43,23 @@ class ChildList extends Component {
         selectedChild: null,
         selectedApproved: null,
         phoneNumbers: '',
-        nonApprovedNumbers: ''
+        nonApprovedNumbers: '',
+        reviewed: false
     }
 
+    changeReviewed = config => dropdownObj => {
+        console.log('reviewed changed- dropdownObj:', dropdownObj);
+        this.props.dispatch({type: 'UPDATE_REVIEWED', payload: {
+                id: config.nonId,
+                childId: config.childId,
+                reviewed: dropdownObj === 'Yes' ? true : false,
+            }
+        });
+        this.setState({
+            reviewed: ''
+        });    
+    } 
+    
     handleChange = (dataname) => event => {
         this.setState({
             newChild: {
@@ -121,7 +151,6 @@ class ChildList extends Component {
                         <tr>
                             <th>Approved Numbers</th>
                         </tr>
-                    <thead></thead>
                         <tr>
                             <th>Name</th>
                             <th>Number</th>
@@ -152,7 +181,14 @@ class ChildList extends Component {
                         <tr>
                             <td>{non.number}</td>
                             <td>{non.time}</td>
-                            <td><ReactDropdown options={options} onChange={this._onSelect}  placeholder="No" /></td>
+                            <td>
+                                <ReactDropdown
+                                    options={options}
+                                    onChange={this.changeReviewed({ nonId: non.non_approved_id, childId: non.child_id })}
+                                    value={non.reviewed ? 'Yes' : 'No'}
+                                    placeholder="No"
+                                />
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -186,6 +222,16 @@ class ChildList extends Component {
                                         placeholder="Phone Number"/>
                     <input type='submit' value='Add New Child' />
                 </form>
+                {/* <div className={classes.container}> 
+            <Input
+                placeholder="Name"
+            className={classes.input}
+            />
+            <Input
+                placeholder="Number"
+                className={classes.input}
+            />
+            </div>*/}
             </div>
         );
     }

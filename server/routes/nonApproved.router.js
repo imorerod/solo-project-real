@@ -18,4 +18,18 @@ router.get('/:id', (req,res) => {
         });
 });
 
+// UPDATING REVIEWED FOR A SPECIFIC NON_APPROVED NUMBER
+router.put('/reviewed/:id', (req,res) => {
+    const booleanString = `UPDATE non_approved SET "reviewed"=$1 WHERE id=$2;`;
+    
+    pool.query(booleanString, [req.body.reviewed, req.params.id])
+    .then((response) => {
+        res.sendStatus(200);
+    })
+    .catch((err) => {
+        console.log('Error updating reviewed: ', err);
+        res.sendStatus(500);
+    });
+});
+
 module.exports = router;

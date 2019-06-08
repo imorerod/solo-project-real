@@ -46,10 +46,30 @@ function* getNonApproved(action) {
       }
 }
 
+function* updateReviewed(action) {
+  console.log(action);
+  try {
+    const response = yield axios.put(`api/non_approved/reviewed/${action.payload.id}`, {
+      reviewed: action.payload.reviewed,
+    });
+    console.log('FROM THE UPDATE REVIEWED SAGA', response);
+    yield put({
+      type: 'GET_NON_APPROVED',
+      payload: {
+        id: action.payload.childId,
+      }
+    })
+  } catch (err) {
+    console.log('error HELP:', err)
+    }
+}
+
+
 function* callsSaga() {
   yield takeLatest('GET_APPROVED', getApproved);
   yield takeLatest('GET_NON_APPROVED', getNonApproved);
   yield takeLatest('ADD_APPROVED', postApproved);
+  yield takeLatest('UPDATE_REVIEWED', updateReviewed)
 }
   
 export default callsSaga;
