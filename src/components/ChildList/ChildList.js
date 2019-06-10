@@ -4,21 +4,6 @@ import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 import './ChildList.css';
 import ReactDropdown from 'react-dropdown';
 import './Dropdown.css';
-// import { makeStyles } from '@material-ui/core/styles';
-// fimport Input from '@material-ui/core/Input';
-
-// const useStyles = makeStyles(theme => ({
-//     container: {
-//       display: 'flex',
-//       flexWrap: 'wrap',
-//     },
-//     input: {
-//       margin: theme.spacing(1),
-//     },
-//   }));
-  
-//   export default function Inputs() {
-//     const classes = useStyles();
 
 const options = [
     'Yes',
@@ -133,10 +118,10 @@ class ChildList extends Component {
         const addNumberField = (
             <div>
                 <form className="addField" onSubmit={this.addNewApproved}>
-                    <p>Add New Approved:</p>
-                    <input type="text" onChange={this.onFormChange('name')} placeholder="Name" />
+                    <p className="formHeader">Add New Approved</p>
+                    <br /><input type="text" onChange={this.onFormChange('name')} placeholder="Name" />
                     <input type="text" onChange={this.onFormChange('number')} placeholder="Number" />
-                    <input type="submit" value="Submit"/>
+                    <input type="submit" value="Add"/>
                 </form>
             </div>
         )
@@ -146,6 +131,7 @@ class ChildList extends Component {
         const phoneNumbers = this.props.reduxState.phoneNumbersReducer.map((item, index) => {
             console.log(item);
             return (
+                <div className="table-scroll">
                 <table className="tableStyle">
                     <thead>
                         <tr>
@@ -163,6 +149,7 @@ class ChildList extends Component {
                         </tr>
                     </tbody>
                 </table>
+                </div>
             )
         })
 
@@ -197,41 +184,30 @@ class ChildList extends Component {
 
         if(this.state.selectedChild) {
             childView = (
-                <div>
-                    {addNumberField}
+                <div className="childView">
                     {phoneNumbers}
-                    <p>Non-Approved numbers go here:</p>
                     {nonApprovedNumbers}
+                    {addNumberField}
                 </div>
             )
         }
 
 
         return (
-            <div>
+            <div className="page">
                 <h2>Children:</h2>
                 {listArray}
                 {childView}
-                <h5>Add New Child</h5>
                 <form className="addField" onSubmit={this.addNewChild}>
-                    <input type='text' value={this.state.newChild.name}
+                <p className="formHeader">Add New Child</p>
+                    <br /><input type='text' value={this.state.newChild.name}
                                         onChange={this.handleChange('name')}
                                         placeholder="Name"/>
                     <input type='text' value={this.state.newChild.number}
                                         onChange={this.handleChange('number')}
                                         placeholder="Phone Number"/>
-                    <input type='submit' value='Add New Child' />
+                    <input type='submit' value='Add' />
                 </form>
-                {/* <div className={classes.container}> 
-            <Input
-                placeholder="Name"
-            className={classes.input}
-            />
-            <Input
-                placeholder="Number"
-                className={classes.input}
-            />
-            </div>*/}
             </div>
         );
     }
