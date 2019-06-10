@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
+import '../ChildList/ChildList.css';
 
 class AddChildForm extends Component {
     state = {
@@ -34,7 +35,7 @@ class AddChildForm extends Component {
 
     render (){
         return (
-            <form className="addField" onSubmit={this.addNewChild}>
+            <form className="addChildForm" onSubmit={this.addNewChild}>
                 <p className="formHeader">Add New Child</p>
                     <br /><input type='text' value={this.state.newChild.name}
                                         onChange={this.handleChange('name')}

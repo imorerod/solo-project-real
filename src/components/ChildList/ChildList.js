@@ -206,7 +206,6 @@ class ChildList extends Component {
                         <AddChildForm closeModal={this.hideModal} />
                     </DialogContent>
                 </Dialog>
-
                 {childView}
                 {addChildForm}
             </div>
