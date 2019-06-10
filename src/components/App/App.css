@@ -17,6 +17,16 @@ form {
     border-radius: 2px;
 }
 
+.logForm {
+    background-color: #C5D1EB;
+    width: 25%;
+    height: 200px;
+    margin: 20px auto;
+    padding: 15px;
+    border-radius: 2px;
+
+}
+
 input {
     margin: 5px;
     margin-bottom: 10px;

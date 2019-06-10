@@ -4,11 +4,18 @@ import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 import './ChildList.css';
 import ReactDropdown from 'react-dropdown';
 import './Dropdown.css';
+import Button from '@material-ui/core/Button';
+import AddChildForm from '../AddChildForm/AddChildForm';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+
+
 
 const options = [
     'Yes',
     'No',
 ];
+
 
 class ChildList extends Component {
   componentDidMount() {
@@ -29,8 +36,19 @@ class ChildList extends Component {
         selectedApproved: null,
         phoneNumbers: '',
         nonApprovedNumbers: '',
-        reviewed: false
+        reviewed: false,
+        show: false
     }
+
+    showModal = () => {
+        this.setState({ show: true });
+        console.log('showModal firing!');
+    };
+    
+    hideModal = () => {
+        this.setState({ show: false });
+    };
+
 
     changeReviewed = config => dropdownObj => {
         console.log('reviewed changed- dropdownObj:', dropdownObj);
@@ -45,38 +63,20 @@ class ChildList extends Component {
         });    
     } 
     
-    handleChange = (dataname) => event => {
-        this.setState({
-            newChild: {
-                ...this.state.newChild,
-                [dataname] : event.target.value
-            }
-        });
-    }
 
-    addNewChild = event => {
-        event.preventDefault();
-        this.props.dispatch({ type: 'ADD_NEW_CHILD', payload: this.state.newChild })
-        this.setState({
-            newChild: {
-                name: '',
-                number: '',
-            }
-        });
-    }
 
     selectChild = (value) => event => {
         if(!this.state.selectedChild){
             // HERE WE WOULD WANT TO GET THE CURRENT CHILD PHONE NUMBERS.
             // YOU WILL NEED TO DISPATCH HERE TO GET THE LIST OF NUMBERS (APPROVED OR NOT)
-            console.log('Child database id: ' , event.target.dataset.id);
-            this.props.dispatch({type: 'GET_APPROVED', payload: { id: event.target.dataset.id }});
-            this.props.dispatch({type: 'GET_NON_APPROVED', payload: { id: event.target.dataset.id }});
+            console.log('Child database id: ' , value.id);
+            this.props.dispatch({type: 'GET_APPROVED', payload: { id: value.id }});
+            this.props.dispatch({type: 'GET_NON_APPROVED', payload: { id: value.id }});
             this.setState({
-                selectedChild: value,
+                selectedChild: value.nameValue,
                 newApproved: {
                     ...this.state.newApproved,
-                    childId: event.target.dataset.id
+                    childId: value.id
                 }
             });
         } else {
@@ -109,9 +109,11 @@ class ChildList extends Component {
     render() {
         const listArray = this.props.reduxState.childListReducer.map((item, index) => {
             return (
-                <button key={index} data-id={item.child_id} onClick={this.selectChild('name')}>
+                <Button key={index}
+                        variant="contained"
+                        onClick={this.selectChild({nameValue: 'name', id: item.child_id})}>
                     {item.name}
-                </button>
+                </Button>
             )
         })
 
@@ -181,6 +183,7 @@ class ChildList extends Component {
                 </table>
             )
         })
+        let addChildForm = null;
 
         if(this.state.selectedChild) {
             childView = (
@@ -192,22 +195,20 @@ class ChildList extends Component {
             )
         }
 
-
         return (
             <div className="page">
                 <h2>Children:</h2>
-                {listArray}
+                <div>
+                    {listArray} <Button variant="contained" onClick={this.showModal}>+ Child</Button>
+                </div>
+                <Dialog open={this.state.show} onClose={this.hideModal} >
+                    <DialogContent>
+                        <AddChildForm closeModal={this.hideModal} />
+                    </DialogContent>
+                </Dialog>
+
                 {childView}
-                <form className="addField" onSubmit={this.addNewChild}>
-                <p className="formHeader">Add New Child</p>
-                    <br /><input type='text' value={this.state.newChild.name}
-                                        onChange={this.handleChange('name')}
-                                        placeholder="Name"/>
-                    <input type='text' value={this.state.newChild.number}
-                                        onChange={this.handleChange('number')}
-                                        placeholder="Phone Number"/>
-                    <input type='submit' value='Add' />
-                </form>
+                {addChildForm}
             </div>
         );
     }
