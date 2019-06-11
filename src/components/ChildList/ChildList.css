@@ -19,12 +19,37 @@
   margin-bottom: 1px;
 }
 
-.table-scroll {
+.addChildForm {
+  width: 95%;
+}
+
+.childViewDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 500px;
+  border: 1px black solid;
+  margin: 0 auto;
+}
+
+.childViewItem {
+  width: 100px;
+  height: 200px;
+  border: 1px black solid;
+  background: #369;
+}
+
+.approvedList {
   height:150px;
   overflow:auto;  
   margin-top:20px;
 }
 
-.addChildForm {
-  width: 95%;
+.addField {
+  background-color: #ADC8D9;
+  width: 50%;
+  height: 150px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 2px;
 }

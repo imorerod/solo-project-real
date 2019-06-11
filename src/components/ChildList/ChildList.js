@@ -8,14 +8,12 @@ import Button from '@material-ui/core/Button';
 import AddChildForm from '../AddChildForm/AddChildForm';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-
-
+import Grid from '@material-ui/core/Grid';
 
 const options = [
     'Yes',
     'No',
 ];
-
 
 class ChildList extends Component {
   componentDidMount() {
@@ -111,6 +109,7 @@ class ChildList extends Component {
             return (
                 <Button key={index}
                         variant="contained"
+                        color="primary"
                         onClick={this.selectChild({nameValue: 'name', id: item.child_id})}>
                     {item.name}
                 </Button>
@@ -118,14 +117,12 @@ class ChildList extends Component {
         })
 
         const addNumberField = (
-            <div>
                 <form className="addField" onSubmit={this.addNewApproved}>
                     <p className="formHeader">Add New Approved</p>
                     <br /><input type="text" onChange={this.onFormChange('name')} placeholder="Name" />
                     <input type="text" onChange={this.onFormChange('number')} placeholder="Number" />
                     <input type="submit" value="Add"/>
                 </form>
-            </div>
         )
 
         let childView = <div></div>;
@@ -133,7 +130,7 @@ class ChildList extends Component {
         const phoneNumbers = this.props.reduxState.phoneNumbersReducer.map((item, index) => {
             console.log(item);
             return (
-                <div className="table-scroll">
+                <div className="approvedList">
                 <table className="tableStyle">
                     <thead>
                         <tr>
@@ -158,6 +155,7 @@ class ChildList extends Component {
         const nonApprovedNumbers = this.props.reduxState.nonApprovedReducer.map((non, index) => {
             console.log(non);
             return (
+                <div className="naNumbers">
                 <table className="tableStyle">
                     <thead>
                         <tr>
@@ -181,33 +179,34 @@ class ChildList extends Component {
                         </tr>
                     </tbody>
                 </table>
+                </div>
             )
         })
-        let addChildForm = null;
 
         if(this.state.selectedChild) {
             childView = (
-                <div className="childView">
-                    {phoneNumbers}
-                    {nonApprovedNumbers}
-                    {addNumberField}
-                </div>
+                <Grid container>
+                <Grid item xs={4}>{phoneNumbers}</Grid>
+                <Grid item xs={4}>{addNumberField}</Grid>
+                    <Grid item xs={4}>{nonApprovedNumbers}</Grid>
+                </Grid>
             )
         }
 
         return (
-            <div className="page">
-                <h2>Children:</h2>
+            <div>
                 <div>
-                    {listArray} <Button variant="contained" onClick={this.showModal}>+ Child</Button>
+                    <h2>Children:</h2>
+                        {listArray} <Button variant="contained" onClick={this.showModal}>+ Child</Button>
+                    </div>
+                <div>
+                    <Dialog open={this.state.show} onClose={this.hideModal} >
+                        <DialogContent>
+                            <AddChildForm closeModal={this.hideModal} />
+                        </DialogContent>
+                    </Dialog>
                 </div>
-                <Dialog open={this.state.show} onClose={this.hideModal} >
-                    <DialogContent>
-                        <AddChildForm closeModal={this.hideModal} />
-                    </DialogContent>
-                </Dialog>
-                {childView}
-                {addChildForm}
+                    {childView}
             </div>
         );
     }
