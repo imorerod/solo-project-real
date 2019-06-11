@@ -9,7 +9,8 @@ import AddChildForm from '../AddChildForm/AddChildForm';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
-
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 const options = [
     'Yes',
     'No',
@@ -130,25 +131,35 @@ class ChildList extends Component {
         const phoneNumbers = this.props.reduxState.phoneNumbersReducer.map((item, index) => {
             console.log(item);
             return (
-                <div className="approvedList">
-                <table className="tableStyle">
-                    <thead>
-                        <tr>
-                            <th>Approved Numbers</th>
-                        </tr>
-                        <tr>
-                            <th>Name</th>
-                            <th>Number</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{item.name}</td>
-                            <td>{item.number}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div>
+                    <Card className="card">
+                        <CardHeader title={item.name} subheader={item.number}>
+                        </CardHeader>
+                    </Card>
+
                 </div>
+
+
+
+                // <div className="approvedList">
+                // <table className="tableStyle">
+                //     <thead>
+                //         <tr>
+                //             <th>Approved Numbers</th>
+                //         </tr>
+                //         <tr>
+                //             <th>Name</th>
+                //             <th>Number</th>
+                //         </tr>
+                //     </thead>
+                //     <tbody>
+                //         <tr>
+                //             <td>{item.name}</td>
+                //             <td>{item.number}</td>
+                //         </tr>
+                //     </tbody>
+                // </table>
+                // </div>
             )
         })
 
@@ -186,9 +197,9 @@ class ChildList extends Component {
         if(this.state.selectedChild) {
             childView = (
                 <Grid container>
-                <Grid item xs={4}>{phoneNumbers}</Grid>
-                <Grid item xs={4}>{addNumberField}</Grid>
-                    <Grid item xs={4}>{nonApprovedNumbers}</Grid>
+                    <Grid item xs={12}>{addNumberField}</Grid>
+                    <Grid item xs={12}>{phoneNumbers}</Grid>
+                    <Grid item xs={12}>{nonApprovedNumbers}</Grid>
                 </Grid>
             )
         }

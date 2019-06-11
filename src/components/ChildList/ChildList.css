@@ -39,15 +39,15 @@
   background: #369;
 }
 
-.approvedList {
+/* .approvedList {
   height:150px;
   overflow:auto;  
   margin-top:20px;
-}
+} */
 
 .addField {
   background-color: #ADC8D9;
-  width: 50%;
+  width: 40%;
   height: 150px;
   margin: 20px auto;
   padding: 15px;
