@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import NumberFormat from 'react-number-format';
 import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
-import './ChildList.css';
 import ReactDropdown from 'react-dropdown';
+import ChildSelectItem from '../ChildSelectItem/ChildSelectItem';
+import './ChildList.css';
 import './Dropdown.css';
+// Material UI
 import Button from '@material-ui/core/Button';
 import AddChildForm from '../AddChildForm/AddChildForm';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ChildSelectItem from '../ChildSelectItem/ChildSelectItem';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import NumberFormat from 'react-number-format';
+import ApprovedList from '../ApprovedList/ApprovedList';
 
 const options = [
     'Yes',
@@ -64,10 +64,8 @@ class ChildList extends Component {
         });
         this.setState({
             reviewed: ''
-        });    
-    } 
-    
-
+        });
+    }
 
     selectChild = (value) => {
         // HERE WE WOULD WANT TO GET THE CURRENT CHILD PHONE NUMBERS.
@@ -96,7 +94,10 @@ class ChildList extends Component {
 
     addNewApproved = event => {
         event.preventDefault();
-        this.props.dispatch({ type: 'ADD_APPROVED', payload: this.state.newApproved })
+        this.props.dispatch({
+            type: 'ADD_APPROVED',
+            payload: this.state.newApproved
+        })
         this.setState({
             newApproved: {
                 name: '',
@@ -122,7 +123,11 @@ class ChildList extends Component {
         const addNumberField = (
                 <form className="addField" onSubmit={this.addNewApproved}>
                     <span className="formHeader">Add New Approved:</span>
-                    <input type="text" value={this.state.newApproved.name} onChange={this.onFormChange('name')} placeholder="Name" />
+                    <input type="text"
+                        value={this.state.newApproved.name}
+                        onChange={this.onFormChange('name')}
+                        placeholder="Name"
+                    />
                     <NumberFormat
                         format="(###) ###-####"
                         value={this.state.newApproved.number}
@@ -130,28 +135,17 @@ class ChildList extends Component {
                         mask="_"
                         placeholder="Number"
                     />
-                   {/* <input type="text" value={this.state.newApproved.number} onChange={this.onFormChange('number')}  /> */}
                     <input type="submit" value="Add"/>
                 </form>
         )
 
         let childView = <div></div>;
 
-        const phoneNumbers = this.props.reduxState.phoneNumbersReducer.map((item, index) => {
-            console.log(item);
-            return (
-                <div>
-                    <ListItem button key={index}>
-                        <ListItemText primary={item.name} secondary= {item.number} />
-                     </ListItem>
-               </div>
-            )
-        })
 
         const nonApprovedNumbers = this.props.reduxState.nonApprovedReducer.map((non, index) => {
             console.log(non);
             return (
-                <div className="naNumbers">
+                <div key={index}>
                     <table className="tableStyle">
                         <thead>
                             <tr>
@@ -160,20 +154,20 @@ class ChildList extends Component {
                                 <th>Reviewed?</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>{non.number}</td>
-                                <td>{non.time}</td>
-                                <td>
-                                    <ReactDropdown
-                                        options={options}
-                                        onChange={this.changeReviewed({ nonId: non.non_approved_id, childId: non.child_id })}
-                                        value={non.reviewed ? 'Yes' : 'No'}
-                                        placeholder="No"
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
+                            <tbody>
+                                <tr>
+                                    <td>{non.number}</td>
+                                    <td>{non.time}</td>
+                                    <td>
+                                        <ReactDropdown
+                                            options={options}
+                                            onChange={this.changeReviewed({ nonId: non.non_approved_id, childId: non.child_id })}
+                                            value={non.reviewed ? 'Yes' : 'No'}
+                                            placeholder="No"
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
                     </table>
                 </div>
             )
@@ -186,7 +180,7 @@ class ChildList extends Component {
                         <Typography variant="h5" component="h3">Approved Numbers:</Typography>
                         {addNumberField}
                         <div className="apprListContainer">
-                            {phoneNumbers}
+                            <ApprovedList />
                         </div>
                     </Grid>
                     <Grid item xs={12}>
@@ -202,7 +196,7 @@ class ChildList extends Component {
         return (
             <Container maxWidth={'md'}>
                 <div className="vr vr_x3">
-                    <h2 className="bodyFont">Children:</h2>
+                    <h1 className="bodyFont">Children:</h1>
                         {listArray} <Button variant="contained" onClick={this.showModal}>+ Child</Button>
                     </div>
                 <div>

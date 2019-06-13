@@ -4,11 +4,21 @@
     width: 100%;
 }
 
-.tableStyle td, th {
+.tableStyle td {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  padding: 4px;
+  background-color: #ADC8D9;
 }
+
+.tableStyle th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 4px;
+  background-color: #465E76;
+  color: white;
+}
+
 
 .tableStyle tr:nth-child(even) {
   background-color: #dddddd;
@@ -45,7 +55,7 @@
 
 .addField {
   background-color: #ADC8D9;
-  width: 100%;
+  width: 96.8%;
   height: auto;
   margin: 20px auto;
   padding: 15px;

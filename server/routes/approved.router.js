@@ -51,4 +51,26 @@ router.post('/', (req, res) => {
       });
   });
 
+// DELETE APPROVED PERSON FROM SPECIFIC CHILD LIST
+router.delete('/:id', (req, res) => {
+    const queryStringTwo = `DELETE FROM "approved" WHERE id=$1;`;
+    const queryStringOne = `DELETE FROM "child_approved" WHERE approved_id=$1;`;
+
+    pool.query(queryStringOne,  [req.params.id])
+    .then((result) => {
+        pool.query(queryStringTwo, [req.params.id])
+            .then((result) => {
+                res.sendStatus(200)
+            })
+            .catch((error) => {
+                console.log('Error deleting approved person from DB', error);
+                res.sendStatus(500);
+            })
+    })
+    .catch((error) => {
+        console.log('Error deleting approved join person from DB', error);
+        res.sendStatus(500);
+    })
+});
+
 module.exports = router;

@@ -64,12 +64,25 @@ function* updateReviewed(action) {
     }
 }
 
+function* deleteApproved(action) {
+  try {
+    console.log('action', action)
+    yield axios.delete(`/api/approved/${action.payload.approvedId}`);
+    yield put({
+      type: 'GET_APPROVED',
+      payload: action.payload.childId
+    })
+  } catch (err) {
+    console.log('error HELP:', err)
+  }
+}
 
 function* callsSaga() {
   yield takeLatest('GET_APPROVED', getApproved);
   yield takeLatest('GET_NON_APPROVED', getNonApproved);
   yield takeLatest('ADD_APPROVED', postApproved);
-  yield takeLatest('UPDATE_REVIEWED', updateReviewed)
+  yield takeLatest('UPDATE_REVIEWED', updateReviewed);
+  yield takeLatest('DELETE_APPROVED', deleteApproved);
 }
-  
+
 export default callsSaga;
