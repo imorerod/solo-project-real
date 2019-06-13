@@ -9,8 +9,13 @@ import AddChildForm from '../AddChildForm/AddChildForm';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ChildSelectItem from '../ChildSelectItem/ChildSelectItem';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
+import NumberFormat from 'react-number-format';
+
 const options = [
     'Yes',
     'No',
@@ -64,25 +69,20 @@ class ChildList extends Component {
     
 
 
-    selectChild = (value) => event => {
-        if(!this.state.selectedChild){
-            // HERE WE WOULD WANT TO GET THE CURRENT CHILD PHONE NUMBERS.
-            // YOU WILL NEED TO DISPATCH HERE TO GET THE LIST OF NUMBERS (APPROVED OR NOT)
-            console.log('Child database id: ' , value.id);
-            this.props.dispatch({type: 'GET_APPROVED', payload: { id: value.id }});
-            this.props.dispatch({type: 'GET_NON_APPROVED', payload: { id: value.id }});
-            this.setState({
-                selectedChild: value.nameValue,
-                newApproved: {
-                    ...this.state.newApproved,
-                    childId: value.id
-                }
-            });
-        } else {
-            this.setState({
-                selectedChild: null
-            });
-        }
+    selectChild = (value) => {
+        // HERE WE WOULD WANT TO GET THE CURRENT CHILD PHONE NUMBERS.
+        // YOU WILL NEED TO DISPATCH HERE TO GET THE LIST OF NUMBERS (APPROVED OR NOT)
+        console.log('Child database id: ' , value.id);
+        this.props.dispatch({type: 'GET_APPROVED', payload: { id: value.id }});
+        this.props.dispatch({type: 'GET_NON_APPROVED', payload: { id: value.id }});
+        this.setState({
+            selectedChild: value.nameValue,
+            newApproved: {
+                ...this.state.newApproved,
+                childId: value.id
+            }
+        });
+        console.log('selectChild - value.nameValue: ', value.nameValue);
     }
 
     onFormChange = (dataname) => event => {
@@ -101,6 +101,7 @@ class ChildList extends Component {
             newApproved: {
                 name: '',
                 number: '',
+                childId: null
             }
         });
     }
@@ -108,20 +109,28 @@ class ChildList extends Component {
     render() {
         const listArray = this.props.reduxState.childListReducer.map((item, index) => {
             return (
-                <Button key={index}
-                        variant="contained"
-                        color="primary"
-                        onClick={this.selectChild({nameValue: 'name', id: item.child_id})}>
-                    {item.name}
-                </Button>
+                <ChildSelectItem
+                    item={item}
+                    key={index}
+                    selectChild={this.selectChild}
+                    selectedChild={this.state.selectedChild}
+                    childIndex={index}
+                />
             )
         })
 
         const addNumberField = (
                 <form className="addField" onSubmit={this.addNewApproved}>
-                    <p className="formHeader">Add New Approved</p>
-                    <br /><input type="text" onChange={this.onFormChange('name')} placeholder="Name" />
-                    <input type="text" onChange={this.onFormChange('number')} placeholder="Number" />
+                    <span className="formHeader">Add New Approved:</span>
+                    <input type="text" value={this.state.newApproved.name} onChange={this.onFormChange('name')} placeholder="Name" />
+                    <NumberFormat
+                        format="(###) ###-####"
+                        value={this.state.newApproved.number}
+                        onChange={this.onFormChange('number')}
+                        mask="_"
+                        placeholder="Number"
+                    />
+                   {/* <input type="text" value={this.state.newApproved.number} onChange={this.onFormChange('number')}  /> */}
                     <input type="submit" value="Add"/>
                 </form>
         )
@@ -132,34 +141,10 @@ class ChildList extends Component {
             console.log(item);
             return (
                 <div>
-                    <Card className="card">
-                        <CardHeader title={item.name} subheader={item.number}>
-                        </CardHeader>
-                    </Card>
-
-                </div>
-
-
-
-                // <div className="approvedList">
-                // <table className="tableStyle">
-                //     <thead>
-                //         <tr>
-                //             <th>Approved Numbers</th>
-                //         </tr>
-                //         <tr>
-                //             <th>Name</th>
-                //             <th>Number</th>
-                //         </tr>
-                //     </thead>
-                //     <tbody>
-                //         <tr>
-                //             <td>{item.name}</td>
-                //             <td>{item.number}</td>
-                //         </tr>
-                //     </tbody>
-                // </table>
-                // </div>
+                    <ListItem button key={index}>
+                        <ListItemText primary={item.name} secondary= {item.number} />
+                     </ListItem>
+               </div>
             )
         })
 
@@ -167,47 +152,57 @@ class ChildList extends Component {
             console.log(non);
             return (
                 <div className="naNumbers">
-                <table className="tableStyle">
-                    <thead>
-                        <tr>
-                            <th>Number</th>
-                            <th>Time</th>
-                            <th>Reviewed?</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{non.number}</td>
-                            <td>{non.time}</td>
-                            <td>
-                                <ReactDropdown
-                                    options={options}
-                                    onChange={this.changeReviewed({ nonId: non.non_approved_id, childId: non.child_id })}
-                                    value={non.reviewed ? 'Yes' : 'No'}
-                                    placeholder="No"
-                                />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <table className="tableStyle">
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Time</th>
+                                <th>Reviewed?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{non.number}</td>
+                                <td>{non.time}</td>
+                                <td>
+                                    <ReactDropdown
+                                        options={options}
+                                        onChange={this.changeReviewed({ nonId: non.non_approved_id, childId: non.child_id })}
+                                        value={non.reviewed ? 'Yes' : 'No'}
+                                        placeholder="No"
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             )
         })
 
         if(this.state.selectedChild) {
             childView = (
-                <Grid container>
-                    <Grid item xs={12}>{addNumberField}</Grid>
-                    <Grid item xs={12}>{phoneNumbers}</Grid>
-                    <Grid item xs={12}>{nonApprovedNumbers}</Grid>
+                <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                        <Typography variant="h5" component="h3">Approved Numbers:</Typography>
+                        {addNumberField}
+                        <div className="apprListContainer">
+                            {phoneNumbers}
+                        </div>
+                    </Grid>
+                    <Grid item xs={12}>
+                       <div className="vr vr_x2">
+                            <Typography variant="h5" component="h3">Incoming Non-Approved Numbers:</Typography>
+                        </div>
+                            {nonApprovedNumbers}
+                    </Grid>
                 </Grid>
             )
         }
 
         return (
-            <div>
-                <div>
-                    <h2>Children:</h2>
+            <Container maxWidth={'md'}>
+                <div className="vr vr_x3">
+                    <h2 className="bodyFont">Children:</h2>
                         {listArray} <Button variant="contained" onClick={this.showModal}>+ Child</Button>
                     </div>
                 <div>
@@ -218,7 +213,7 @@ class ChildList extends Component {
                     </Dialog>
                 </div>
                     {childView}
-            </div>
+            </Container>
         );
     }
 }

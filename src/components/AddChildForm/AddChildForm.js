@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 import '../ChildList/ChildList.css';
+import NumberFormat from 'react-number-format';
+
 
 class AddChildForm extends Component {
     state = {
@@ -32,7 +34,6 @@ class AddChildForm extends Component {
             });
         }
     
-
     render (){
         return (
             <form className="addChildForm" onSubmit={this.addNewChild}>
@@ -40,9 +41,20 @@ class AddChildForm extends Component {
                     <br /><input type='text' value={this.state.newChild.name}
                                         onChange={this.handleChange('name')}
                                         placeholder="Name"/>
-                    <input type='text' value={this.state.newChild.number}
-                                        onChange={this.handleChange('number')}
-                                        placeholder="Phone Number"/>
+                    <NumberFormat
+                        format="(###) ###-####"
+                        value={this.state.newChild.number}
+                        onChange={this.handleChange('number')}
+                        mask="_"
+                        placeholder="Number"
+                    />
+
+
+                    {/* <input type='text'
+                                value={this.state.newChild.number}
+                                onChange={this.handleChange('number')}
+                                placeholder="Phone Number"
+                        /> */}
                     <input type='submit' value='Add' />
                 </form>
             );

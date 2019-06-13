@@ -4,11 +4,13 @@
     display: inline-block;
     color: #f2f2f2;
     padding-left: 10px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .nav {
   overflow: hidden;
   background-color: #465E76;
+  font-family: 'Poppins', sans-serif;
 }
 
 .nav-link {
@@ -19,6 +21,7 @@
   padding: 24px 10px;
   text-decoration: none;
   font-size: 15px;
+  font-family: 'Poppins', sans-serif;
 
   /* these last two make the logout button in
   the nav bar look like another link */
@@ -33,4 +36,5 @@
 
 .nav-right {
   float: right;
+  font-family: 'Poppins', sans-serif;
 }

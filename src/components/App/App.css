@@ -1,5 +1,5 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Nunito', sans-serif;
     margin: 0px;
     background-color: #C9F2EE;
 }
@@ -9,7 +9,7 @@ body {
     margin: 50px;
 }
 
-form {
+.form {
     background-color: #ADC8D9;
     width: 25%;
     height: 150px;

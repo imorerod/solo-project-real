@@ -27,6 +27,10 @@ router.post('/', (req, res) => {
         newApproved.name,
         newApproved.number
     ];
+    if (newApproved.name === '' || newApproved.number === ''){
+        res.sendStatus(500);
+        return false;
+    }
 
     pool.query(queryText, queryValues)
       .then((response) => {
