@@ -15,11 +15,24 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import ApprovedList from '../ApprovedList/ApprovedList';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 const options = [
     'Yes',
     'No',
 ];
+
+const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#465E76'
+      },
+      secondary: {
+        main: '#FFFFFF'
+      }
+    },
+  });
 
 class ChildList extends Component {
   componentDidMount() {
@@ -152,12 +165,15 @@ class ChildList extends Component {
                                 <th>Number</th>
                                 <th>Time</th>
                                 <th>Reviewed?</th>
-                                {/* <th>Approve?</th> */}
+                                {/* // saved for later => click button to add from non to approved
+                                <th>Approve?</th> */}
                             </tr>
                         </thead>
                             <tbody>
                                 <tr>
-                                    <td><a href="https://www.google.com/">{non.number}</a></td>
+                                    {/* // this is saved for later => numbers into Google search
+                                    <td><a href="https://www.google.com/">{non.number}</a></td> */}
+                                    <td>{non.number}</td>
                                     <td>{non.time}</td>
                                     <td>
                                         <ReactDropdown
@@ -177,9 +193,17 @@ class ChildList extends Component {
 
         if(this.state.selectedChild) {
             childView = (
-                <Grid container spacing={4}>
+
+            <Grid container spacing={4}>
                     <Grid item xs={12}>
-                        <Typography variant="h5" component="h3">Approved Numbers:</Typography>
+                    <MuiThemeProvider theme={theme}>
+                        <Typography
+                            color="secondary"
+                            variant="h5"
+                            component="h3">
+                            Approved Numbers:
+                        </Typography>
+                    </MuiThemeProvider>
                         {addNumberField}
                         <div className="apprListContainer">
                             <ApprovedList />
@@ -187,7 +211,14 @@ class ChildList extends Component {
                     </Grid>
                     <Grid item xs={12}>
                        <div className="vr vr_x2">
-                            <Typography variant="h5" component="h3">Incoming Non-Approved Numbers:</Typography>
+                       <MuiThemeProvider theme={theme}>
+                            <Typography
+                                color="secondary"
+                                variant="h5"
+                                component="h3">
+                                Incoming Non-Approved Numbers:
+                            </Typography>
+                        </MuiThemeProvider>
                         </div>
                             {nonApprovedNumbers}
                     </Grid>
@@ -213,6 +244,5 @@ class ChildList extends Component {
         );
     }
 }
-
 
 export default connect(mapReduxStateToProps)(ChildList);

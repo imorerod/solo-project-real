@@ -8,8 +8,11 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
     palette: {
       primary: {
-        main: '#465E76',
+        main: '#465E76'
       },
+      secondary: {
+        main: '#FFFFFF'
+      }
     },
   });
 
@@ -27,20 +30,17 @@ class ChildSelectItem extends Component {
         
         return (
             <MuiThemeProvider theme={theme}>
-
             <Button 
-                variant="contained"
                 color="primary"
+                variant="contained"
                 disabled={isDisabled}
                 onClick={this.selectChild}
             >
                 {this.props.item.name}
             </Button>
             </MuiThemeProvider>
-
         )
     }
 }
-
 
 export default connect(mapReduxStateToProps)(ChildSelectItem);
