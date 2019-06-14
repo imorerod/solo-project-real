@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 import ApprovedItem from '../ApprovedItem/ApprovedItem';
+import List from '@material-ui/core/List';
 
 class ApprovedList extends Component {
 
@@ -13,9 +14,9 @@ class ApprovedList extends Component {
             )
         })
         return (
-            <div>
+            <List component="div">
                 {phoneNumbers}
-            </div>
+            </List>
             );
     }
 }

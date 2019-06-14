@@ -70,7 +70,8 @@ function* deleteApproved(action) {
     yield axios.delete(`/api/approved/${action.payload.approvedId}`);
     yield put({
       type: 'GET_APPROVED',
-      payload: action.payload.childId
+      payload: {
+        id: action.payload.childId}
     })
   } catch (err) {
     console.log('error HELP:', err)

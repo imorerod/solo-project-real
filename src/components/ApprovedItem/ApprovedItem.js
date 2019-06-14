@@ -6,7 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+// import './ChildList.css';
 
 class ApprovedItem extends Component {
 
@@ -22,7 +22,7 @@ class ApprovedItem extends Component {
     
     render (){
         return (
-            <ListItem className="listDiv" button >
+            <ListItem component="div" className="listDiv" button >
             <ListItemText primary={this.props.item.name} secondary= {this.props.item.number} />
             <ListItemSecondaryAction>
                 <IconButton onClick={this.deleteApproved} edge="end" aria-label="Delete">
