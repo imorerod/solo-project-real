@@ -21,8 +21,10 @@ function* postApproved(action) {
     yield axios.post('/api/approved/', action.payload);
     const newPayload = {
       ...action.payload,
-      id: action.payload.childId
+      id: action.payload.childId != null ? action.payload.childId : action.payload.id,
     }
+    console.log('postApproved - action:', action);
+    console.log('postApproved - newPayload:', newPayload);
     yield put({
       type: 'GET_APPROVED',
       payload: newPayload

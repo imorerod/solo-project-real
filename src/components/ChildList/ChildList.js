@@ -100,9 +100,9 @@ class ChildList extends Component {
         })
         this.setState({
             newApproved: {
+                ...this.state.newApproved,
                 name: '',
                 number: '',
-                childId: null
             }
         });
     }
@@ -152,11 +152,12 @@ class ChildList extends Component {
                                 <th>Number</th>
                                 <th>Time</th>
                                 <th>Reviewed?</th>
+                                {/* <th>Approve?</th> */}
                             </tr>
                         </thead>
                             <tbody>
                                 <tr>
-                                    <td>{non.number}</td>
+                                    <td><a href="https://www.google.com/">{non.number}</a></td>
                                     <td>{non.time}</td>
                                     <td>
                                         <ReactDropdown
@@ -166,6 +167,7 @@ class ChildList extends Component {
                                             placeholder="No"
                                         />
                                     </td>
+                                    {/* <td><button>Approve</button></td> */}
                                 </tr>
                             </tbody>
                     </table>
@@ -196,8 +198,8 @@ class ChildList extends Component {
         return (
             <Container maxWidth={'md'}>
                 <div className="vr vr_x3">
-                    <h1 className="bodyFont">Children:</h1>
-                        {listArray} <Button variant="contained" onClick={this.showModal}>+ Child</Button>
+                    <h1 className="bodyFont">Kids:</h1>
+                        {listArray} <Button variant="contained" onClick={this.showModal}>+ Kid </Button>
                     </div>
                 <div>
                     <Dialog open={this.state.show} onClose={this.hideModal} >
