@@ -4,6 +4,7 @@ import NumberFormat from 'react-number-format';
 import mapReduxStateToProps from '../../modules/maxReduxStateToProps';
 import ReactDropdown from 'react-dropdown';
 import ChildSelectItem from '../ChildSelectItem/ChildSelectItem';
+import ApprovedList from '../ApprovedList/ApprovedList';
 import './ChildList.css';
 import './Dropdown.css';
 // Material UI
@@ -14,25 +15,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import ApprovedList from '../ApprovedList/ApprovedList';
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import { createMuiTheme } from '@material-ui/core/styles';
 
 const options = [
     'Yes',
     'No',
 ];
-
-const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#465E76'
-      },
-      secondary: {
-        main: '#FFFFFF'
-      }
-    },
-  });
 
 class ChildList extends Component {
   componentDidMount() {
@@ -193,34 +180,29 @@ class ChildList extends Component {
 
         if(this.state.selectedChild) {
             childView = (
-
-            <Grid container spacing={4}>
+                <Grid container spacing={4}>
                     <Grid item xs={12}>
-                    <MuiThemeProvider theme={theme}>
                         <Typography
-                            color="secondary"
-                            variant="h5"
-                            component="h3">
-                            Approved Numbers:
+                                color="secondary"
+                                variant="h5"
+                                component="h3">
+                                Approved Numbers:
                         </Typography>
-                    </MuiThemeProvider>
-                        {addNumberField}
-                        <div className="apprListContainer">
-                            <ApprovedList />
-                        </div>
+                            {addNumberField}
+                            <div className="apprListContainer">
+                                <ApprovedList />
+                            </div>
                     </Grid>
                     <Grid item xs={12}>
-                       <div className="vr vr_x2">
-                       <MuiThemeProvider theme={theme}>
-                            <Typography
+                    <div className="vr vr_x2">
+                        <Typography
                                 color="secondary"
                                 variant="h5"
                                 component="h3">
                                 Incoming Non-Approved Numbers:
-                            </Typography>
-                        </MuiThemeProvider>
-                        </div>
-                            {nonApprovedNumbers}
+                        </Typography>
+                    </div>
+                                {nonApprovedNumbers}
                     </Grid>
                 </Grid>
             )

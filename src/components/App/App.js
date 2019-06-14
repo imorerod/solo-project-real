@@ -11,21 +11,48 @@ import {connect} from 'react-redux';
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import BodyStyler from '../BodyStyler/BodyStyler';
 
 import UserPage from '../UserPage/UserPage';
 import ChildList from '../ChildList/ChildList';
 
 import './App.css';
 
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles';
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#617589',
+      main: '#465E76',
+      dark: '#24384C',
+      contrastText: 'white'
+    },
+    secondary: {
+      light: '#FFFFFF',
+      main: '#FFFFFF',
+      dark: '#EFEFEF',
+      contrastText: '#333333'
+    }
+  },
+});
+
+
 class App extends Component {
   componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+    this.props.dispatch({type: 'FETCH_USER'});
   }
 
   render() {
     return (
+      <MuiThemeProvider theme={theme}>
+
       <Router>
+        <BodyStyler />
+  
         <div>
           <Nav />
           <Switch>
@@ -54,6 +81,7 @@ class App extends Component {
           <Footer />
         </div>
       </Router>
+      </MuiThemeProvider>
   )}
 }
 
