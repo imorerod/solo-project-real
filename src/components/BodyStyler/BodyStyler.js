@@ -20,7 +20,7 @@ class BodyStyler extends Component {
             document.body.classList.remove('bgList');
         }
 
-        // if (!this.props.reduxState.user.id){
+        // if (!this.props.reduxState.loginMode){
         //     this.props.history.push('/home');
         // }
     }

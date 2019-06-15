@@ -160,6 +160,11 @@ class ChildList extends Component {
                                 <tr>
                                     {/* // this is saved for later => numbers into Google search
                                     <td><a href="https://www.google.com/">{non.number}</a></td> */}
+                                    <td>
+                                        <a target="_blank" href="http://www.google.com/search?q={non.number}">
+                                        {non.number}
+                                        </a>
+                                    </td>
                                     <td>{non.number}</td>
                                     <td>{non.time}</td>
                                     <td>
