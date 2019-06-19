@@ -37,7 +37,7 @@ class AddChildForm extends Component {
     render (){
         return (
             <form className="addChildForm" onSubmit={this.addNewChild}>
-                <p className="formHeader">Add New Child</p>
+                <p className="formHeader">Add Kid:</p>
                     <br /><input type='text' value={this.state.newChild.name}
                                         onChange={this.handleChange('name')}
                                         placeholder="Name"/>
