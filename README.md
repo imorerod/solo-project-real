@@ -16,9 +16,11 @@ Before you get started, make sure you have the following software installed on y
 - [PostrgeSQL](https://www.postgresql.org/)
 - [Nodemon](https://nodemon.io/)
 
-## Create database and table
+## Create database and tables
 
-Create a new database called `kid-safe` and enter the following information into the SQL Query window
+Start postgres if not running already by using `brew services start postgresql`
+
+Create a new database called `kid-safe` and enter the following information into the SQL Query window:
 
 ```CREATE TABLE "parent" (
     "id" SERIAL PRIMARY KEY,
@@ -74,3 +76,6 @@ CREATE TABLE "non_approved" (
 ## Installation
 
 * Run `npm install`
+* Run `npm run server`
+* Run `npm run client`
+* Navigate to `localhost:3000`
