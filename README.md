@@ -1,6 +1,8 @@
 # KidSafe
 
-KidSafe is an application for parents to directly manage who their kid can connect with via cell phone.
+Parents try to keep their kids close in public to know they are safe. In the same way, keeping kids safe as they interact with technology is important. Blocking numbers parents don’t want contacting their kid could be exhausting. What if parents could set a certain list of approved numbers and only those numbers can connect to the kid.
+
+Enter, KidSafe. Kidsafe is an application that allows parents to proactively approve numbers, as well as monitor incoming calls that need to be approved first. In this first sprint, I built out the API to support this functionality. In future sprints, I will be creating the mobile application that benefits from this APIs data. Kidsafe is a tool for parents to help protect their kids, and because of that, it was a joy to work on.
 
 ## Download (Don't Clone) This Repository
 
