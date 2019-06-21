@@ -22,7 +22,8 @@ Start postgres if not running already by using `brew services start postgresql`
 
 Create a new database called `kid-safe` and enter the following information into the SQL Query window:
 
-```CREATE TABLE "parent" (
+```
+CREATE TABLE "parent" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL
