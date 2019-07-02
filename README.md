@@ -22,7 +22,7 @@ Before you get started, make sure you have the following software installed on y
 
 Start postgres if not running already by using `brew services start postgresql`
 
-Create a new database called `kid-safe` and enter the following information into the SQL Query window:
+Create a new database in termianl, `create db kid-safe` and enter the following information, (Postico used) into the SQL Query window:
 
 ```
 CREATE TABLE "parent" (
