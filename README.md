@@ -82,3 +82,16 @@ CREATE TABLE "non_approved" (
 * Run `npm run server`
 * Run `npm run client`
 * Navigate to `localhost:3000`
+
+## Reflection of Learning
+
+When did this project occur?
+   This project occurred during our 14th and 15th weeks of the program.
+
+What did you learn from the project?
+   This assignment allowed me to apply our encompassed learning of technologies previously learned.
+   (More to come)...
+
+## Questions? I would love to connect!
+Email - [idm9191@gmail.com](mailto:idm9191@gmail.com)
+
