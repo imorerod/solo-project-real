@@ -1,14 +1,10 @@
 # KidSafe
 
+_Duration: 2 week sprint_
+
 Parents try to keep their kids close in public to know they are safe. In the same way, keeping kids safe as they interact with technology is important. Blocking numbers parents don’t want contacting their kid could be exhausting. What if parents could set a certain list of approved numbers and only those numbers can connect to the kid.
 
 Enter, KidSafe. Kidsafe is an application that allows parents to proactively approve numbers, as well as monitor incoming calls that need to be approved first. In this first sprint, I built out the API to support this functionality. In future sprints, I will be creating the mobile application that benefits from this APIs data. Kidsafe is a tool for parents to help protect their kids, and because of that, it was a joy to work on.
-
-## Download (Don't Clone) This Repository
-
-* Don't Fork or Clone. Instead, click the `Clone or Download` button and select `Download Zip`.
-* Unzip the project and start with the code in that folder.
-* Create a new GitHub project and push this code to the new repository.
 
 ## Prerequisites
 
