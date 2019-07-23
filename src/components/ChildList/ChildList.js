@@ -158,7 +158,8 @@ class ChildList extends Component {
                         </thead>
                             <tbody>
                                 <tr>
-                                    {/* <td>
+                                    {/* NEED TO FIGURE OUT HOW TO MAKE IT INSTANTLY GOOGLE THE NUMBER ON A CLICK
+                                    <td>
                                         <a 
                                             target="_blank"
                                             rel="noopener noreferrer"
