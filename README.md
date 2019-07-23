@@ -1,14 +1,10 @@
 # KidSafe
 
+_Duration: 2 week sprint_
+
 Parents try to keep their kids close in public to know they are safe. In the same way, keeping kids safe as they interact with technology is important. Blocking numbers parents don’t want contacting their kid could be exhausting. What if parents could set a certain list of approved numbers and only those numbers can connect to the kid.
 
 Enter, KidSafe. Kidsafe is an application that allows parents to proactively approve numbers, as well as monitor incoming calls that need to be approved first. In this first sprint, I built out the API to support this functionality. In future sprints, I will be creating the mobile application that benefits from this APIs data. Kidsafe is a tool for parents to help protect their kids, and because of that, it was a joy to work on.
-
-## Download (Don't Clone) This Repository
-
-* Don't Fork or Clone. Instead, click the `Clone or Download` button and select `Download Zip`.
-* Unzip the project and start with the code in that folder.
-* Create a new GitHub project and push this code to the new repository.
 
 ## Prerequisites
 
@@ -22,7 +18,7 @@ Before you get started, make sure you have the following software installed on y
 
 Start postgres if not running already by using `brew services start postgresql`
 
-Create a new database called `kid-safe` and enter the following information into the SQL Query window:
+Create a new database in termianl, `create db kid-safe` and enter the following information, (Postico used) into the SQL Query window:
 
 ```
 CREATE TABLE "parent" (
@@ -82,3 +78,7 @@ CREATE TABLE "non_approved" (
 * Run `npm run server`
 * Run `npm run client`
 * Navigate to `localhost:3000`
+
+## Questions? I would love to connect!
+Email - [idm9191@gmail.com](mailto:idm9191@gmail.com)
+
