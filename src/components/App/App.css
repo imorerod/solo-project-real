@@ -53,7 +53,7 @@ input {
   background-color: #91D9CC;
 }
 
-/* This line makes the "Register" and "Login" buttons look like links */
+/* This line makes the "Register" and "Login" buttons look like links
 .link-button {
     background:none;
     color: white;
@@ -63,7 +63,7 @@ input {
     outline:0;
     border-bottom:1px solid white; 
     cursor: pointer;
-}
+} */
 
 .welcome {
     color: white;

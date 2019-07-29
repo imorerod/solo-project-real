@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './LoginPage.css';
+import { Button, Container, Typography } from '@material-ui/core';
 
 class LoginPage extends Component {
   state = {
@@ -41,6 +42,7 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
+        <Container>
         <form className="logForm" onSubmit={this.login}>
           <h1>Login</h1>
           <div>
@@ -72,17 +74,18 @@ class LoginPage extends Component {
               name="submit"
               value="Log In"
             />
-          </div>
-        </form>
-        <center>
-          <button
-            type="button"
-            className="link-button"
+            <Button
+            type="submit"
+            variant="contained"
+            color="primary"
             onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
           >
             Register
-          </button>
-        </center>
+          </Button>
+
+          </div>
+        </form>
+        </Container>
       </div>
     );
   }
